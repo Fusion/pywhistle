@@ -59,6 +59,7 @@ class WhistleScanner:
             self._hass, self._async_update, timedelta(minutes=2))
         return True
 
+
     async def _async_update(self, now=None):
         _LOGGER.info('Updating Whistle data')
         try:
@@ -76,7 +77,11 @@ class WhistleScanner:
                 'name': pet['name'],
                 'battery_level': pet['device']['battery_level'],
                 'battery_status': pet['device']['battery_status'],
-                'pending_locate': pet['device']['pending_locate']
+                'pending_locate': pet['device']['pending_locate'],
+                'activity_streak': pet['activity_summary']['current_streak'],
+                'activity_minutes_active': pet['activity_summary']['current_minutes_active'],
+                'activity_minutes_rest': pet['activity_summary']['current_minutes_rest'],
+                'activity_goal': pet['activity_summary']['current_activity_goal']['minutes']
             }
             if self._preferred_picture in pet['profile_photo_url_sizes']:
                 attributes['picture'] = pet['profile_photo_url_sizes'][self._preferred_picture]
@@ -88,3 +93,4 @@ class WhistleScanner:
                 ),
                 attributes = attributes,
                 icon='mdi:view-grid')
+
