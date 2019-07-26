@@ -9,7 +9,6 @@ from homeassistant.helpers.event import async_track_time_interval
 
 
 _LOGGER = logging.getLogger(__name__)
-REQUIREMENTS = ['pywhistle==0.0.2']
 DEVICE_TYPES = ['WHISTLE']
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_USERNAME): cv.string,
@@ -93,4 +92,3 @@ class WhistleScanner:
                 ),
                 attributes = attributes,
                 icon='mdi:view-grid')
-
