@@ -21,7 +21,7 @@ Note that the organization suggested below for your yaml files may not match you
 Add the device tracker to 'configuration.yaml':
 
 ```
-sensor:
+device_tracker:
   ...
   - platform: whistle
     username: !secret whistle_username
