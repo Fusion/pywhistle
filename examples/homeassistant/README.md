@@ -13,7 +13,7 @@ The commands below should create the correct hierarchy while not downloading the
 git clone --depth=1 git@github.com:Fusion/pywhistle.git --no-checkout
 cd pywhistle
 git checkout master -- examples/homeassistant
-ln -s examples/homeassistant ../whistle
+ln -s $(pwd)/examples/homeassistant ../whistle
 ```
 
 Note that the organization suggested below for your yaml files may not match your own. In that case, I trust that you will know which files to modify.
