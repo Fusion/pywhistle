@@ -64,6 +64,7 @@ class WhistleScanner:
         try:
             await self._client.async_init()
             pets = await self._client.get_pets()
+            dailies = await self._client.get_dailies(433911)
         except Exception as e:
             _LOGGER.error("There was an error while updating: %s", e)
         _LOGGER.debug("Retrieved data:")
@@ -80,7 +81,9 @@ class WhistleScanner:
                 'activity_streak': pet['activity_summary']['current_streak'],
                 'activity_minutes_active': pet['activity_summary']['current_minutes_active'],
                 'activity_minutes_rest': pet['activity_summary']['current_minutes_rest'],
-                'activity_goal': pet['activity_summary']['current_activity_goal']['minutes']
+                'activity_goal': pet['activity_summary']['current_activity_goal']['minutes'],
+                'activity_distance': dailies['dailies'][0]['distance'],
+                'activity_calories': dailies['dailies'][0]['calories']
             }
             if self._preferred_picture in pet['profile_photo_url_sizes']:
                 attributes['picture'] = pet['profile_photo_url_sizes'][self._preferred_picture]
@@ -91,4 +94,4 @@ class WhistleScanner:
                     pet['last_location']['longitude']
                 ),
                 attributes = attributes,
-                icon='mdi:view-grid')
+                icon='mdi:dog')
