@@ -1,6 +1,7 @@
 {
     "domain": "whistle",
     "name": "Whistle GPS and Activity Tracker",
+    "version": "1.0.0",
     "documentation": "https://github.com/Fusion/pywhistle/tree/master/examples/homeassistant",
     "dependencies": [],
     "codeowners": ["@fusion"],
