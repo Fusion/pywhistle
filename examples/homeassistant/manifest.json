@@ -5,5 +5,5 @@
     "documentation": "https://github.com/Fusion/pywhistle/tree/master/examples/homeassistant",
     "dependencies": [],
     "codeowners": ["@fusion"],
-    "requirements": ["pywhistle==0.0.2"]
+    "requirements": ["git+https://github.com/Fusion/pywhistle@master#pywhistle==0.0.3"]
 }
