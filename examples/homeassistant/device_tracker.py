@@ -72,6 +72,8 @@ class WhistleScanner:
             _LOGGER.warning("No Pets found")
             return
         for pet in pets['pets']:
+            dailies = await self._client.get_dailies(pet['id'])
+            device = await self._client.get_device(pet['device']['serial_number'])
             attributes = {
                 'name': pet['name'],
                 'battery_level': pet['device']['battery_level'],
@@ -80,7 +82,12 @@ class WhistleScanner:
                 'activity_streak': pet['activity_summary']['current_streak'],
                 'activity_minutes_active': pet['activity_summary']['current_minutes_active'],
                 'activity_minutes_rest': pet['activity_summary']['current_minutes_rest'],
-                'activity_goal': pet['activity_summary']['current_activity_goal']['minutes']
+                'activity_goal': pet['activity_summary']['current_activity_goal']['minutes'],
+                'activity_distance': dailies['dailies'][0]['distance'],
+                'activity_calories': dailies['dailies'][0]['calories'],
+                'battery_days_left': device['device']['battery_stats']['battery_days_left'],
+                '24h_battery_save_usage': round(((float(device['device']['battery_stats']['prior_usage_minutes']['24h']['power_save_mode']) / 1440) * 100), 0),
+                '24h_battery_cellular_usage': round(((float(device['device']['battery_stats']['prior_usage_minutes']['24h']['cellular']) / 1440) * 100), 0)
             }
             if self._preferred_picture in pet['profile_photo_url_sizes']:
                 attributes['picture'] = pet['profile_photo_url_sizes'][self._preferred_picture]
@@ -91,4 +98,4 @@ class WhistleScanner:
                     pet['last_location']['longitude']
                 ),
                 attributes = attributes,
-                icon='mdi:view-grid')
+                icon='mdi:dog')
