@@ -26,10 +26,10 @@ class Client:
             "Host": config['remote_host'],
             "Content-Type": "application/json",
             "Connection": "keep-alive",
-            "Accept": "application/vnd.whistle.com.v4+json",
-            "Accept-Language": "en-us",
+            "Accept": "application/vnd.whistle.com.v5+json",
+            "Accept-Language": "en",
             "Accept-Encoding": "br, gzip, deflate",
-            "User-Agent": "Winston/2.5.3 (iPhone; iOS 12.0.1; Build:1276; Scale/2.0)",
+            "User-Agent": "Winston/3.9.0 (iPhone; iOS 13.5; Build:2399; Scale/3.0)",
             "Authorization": "Bearer %s" % token
     }
 
@@ -95,6 +95,13 @@ class Client:
     async def get_pets(self):
         return await self.get_resource(self._config, self._token, 'pets')
 
+    """
+    Returns:
+       device: dictionary of
+          model_id, serial_number, battery_stats, etc
+    """
+    async def get_device(self, serial_number):
+        return await self.get_resource(self._config, self._token, 'devices/%s' % serial_number)
 
     """
     Returns:
