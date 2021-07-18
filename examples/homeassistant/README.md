@@ -78,6 +78,11 @@ sensor:
         icon_template: mdi:run
         value_template: '{{ state_attr("device_tracker.whistle_charlie", "activity_calories") | round(1) }}'
         unit_of_measurement: 'calories'
+      charlie_battery_days_left:
+        friendly_name: "Battery Days Left"
+        icon_template: mdi:calendar-clock
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "battery_days_left") }}'
+        unit_of_measurement: 'days'
       charlie_battery_24h_wifi_usage:
         friendly_name: "Battery WiFi Usage"
         icon_template: mdi:wifi
@@ -113,5 +118,6 @@ views:
                   - sensor.charlie_calories
                   - sensor.charlie_battery_24h_wifi_usage
                   - sensor.charlie_battery_24h_cell_usage
+                  - sensor.charlie_battery_days_left
 
 ```
