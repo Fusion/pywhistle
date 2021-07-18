@@ -86,7 +86,7 @@ class WhistleScanner:
                 'activity_distance': dailies['dailies'][0]['distance'],
                 'activity_calories': dailies['dailies'][0]['calories'],
                 'battery_days_left': device['device']['battery_stats']['battery_days_left'],
-                '24h_battery_save_usage': round(((float(device['device']['battery_stats']['prior_usage_minutes']['24h']['power_save_mode']) / 1440) * 100), 0),
+                '24h_battery_wifi_usage': round(((float(device['device']['battery_stats']['prior_usage_minutes']['24h']['power_save_mode']) / 1440) * 100), 0),
                 '24h_battery_cellular_usage': round(((float(device['device']['battery_stats']['prior_usage_minutes']['24h']['cellular']) / 1440) * 100), 0)
             }
             if self._preferred_picture in pet['profile_photo_url_sizes']:
