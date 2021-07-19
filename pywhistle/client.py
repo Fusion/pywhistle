@@ -49,6 +49,15 @@ class Client:
             ) -> dict:
         if not headers:
             headers = {}
+        """Need to specify encoding when getting Achievements endpoint"""
+        if "achievements" in resource:
+            async with self._websession.request(
+                    method,
+                    self.url(config, resource),
+                    headers=headers,
+                    data=data) as r:
+                r.raise_for_status()
+                return await r.json(encoding='UTF-8')
         async with self._websession.request(
                 method,
                 self.url(config, resource),
@@ -174,6 +183,17 @@ class Client:
     """
     async def get_dailies_day(self, pet_id, day_id):
         return await self.get_resource(self._config, self._token, "pets/%s/dailies/%s" % (pet_id, day_id))
+
+    """
+    Returns:
+        daily_items: array of dictionaries
+                type: event type
+                title: event title
+                start_time: in UTC
+                end_time: string in UTC
+    """
+    async def get_dailies_daily_items(self, pet_id, day_id):
+        return await self.get_resource(self._config, self._token, "pets/%s/dailies/%s/daily_items" % (pet_id, day_id))
 
 
     """
