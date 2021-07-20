@@ -8,7 +8,7 @@ def get_readme_content():
 
 setup(
     name = 'pywhistle',
-    version = '0.0.2',
+    version = '0.0.3',
     description = 'Unofficial Whistle 3 Device API',
     author = 'Chris F Ravenscroft',
     author_email = 'chris@voilaweb.com',
