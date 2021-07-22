@@ -106,6 +106,15 @@ class Client:
 
     """
     Returns:
+        pet: dictionary of
+             id, gender, name, etc for single pet
+    """
+
+    async def get_pet(self, pet_id):
+        return await self.get_resource(self._config, self._token, 'pets/%s' % pet_id)
+
+    """
+    Returns:
        device: dictionary of
           model_id, serial_number, battery_stats, etc
     """
