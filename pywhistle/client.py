@@ -49,8 +49,8 @@ class Client:
             ) -> dict:
         if not headers:
             headers = {}
-        """Need to specify encoding when getting Achievements endpoint"""
-        if "achievements" in resource:
+        """Need to specify encoding when getting Achievements or Places endpoint"""
+        if "achievements" or "places" in resource:
             async with self._websession.request(
                     method,
                     self.url(config, resource),
