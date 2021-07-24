@@ -10,10 +10,13 @@ You need to clone this folder to '{config path}/custom_components'.
 The commands below should create the correct hierarchy while not downloading the whole code, yet allowing you to upgrade.
 
 ```
+# Modify the following line to replace the path after "cd" to match your folder structure
+cd home-assistant/config/custom_components
 git clone --depth=1 git@github.com:Fusion/pywhistle.git --no-checkout
 cd pywhistle
 git checkout master -- examples/homeassistant
-ln -s $(pwd)/examples/homeassistant ../whistle
+cd ..
+ln -s pywhistle/examples/homeassistant whistle
 ```
 
 Note that the organization suggested below for your yaml files may not match your own. In that case, I trust that you will know which files to modify.
@@ -22,7 +25,6 @@ Add the device tracker to 'configuration.yaml':
 
 ```
 device_tracker:
-  ...
   - platform: whistle
     username: !secret whistle_username
     password: !secret whistle_password
@@ -42,7 +44,8 @@ You will have to replace 'whistle_charlie' with your tracker's name as found in 
 
 ```
 sensor:
-  ...
+  - platform: template
+    sensors:
       charlie_goal_minutes:
         friendly_name: "Activity Goal"
         icon_template: mdi:trophy-outline
