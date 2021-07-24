@@ -26,10 +26,10 @@ class Client:
             "Host": config['remote_host'],
             "Content-Type": "application/json",
             "Connection": "keep-alive",
-            "Accept": "application/vnd.whistle.com.v4+json",
-            "Accept-Language": "en-us",
+            "Accept": "application/vnd.whistle.com.v5+json",
+            "Accept-Language": "en",
             "Accept-Encoding": "br, gzip, deflate",
-            "User-Agent": "Winston/2.5.3 (iPhone; iOS 12.0.1; Build:1276; Scale/2.0)",
+            "User-Agent": "Winston/3.9.0 (iPhone; iOS 13.5; Build:2399; Scale/3.0)",
             "Authorization": "Bearer %s" % token
     }
 
@@ -49,6 +49,15 @@ class Client:
             ) -> dict:
         if not headers:
             headers = {}
+        """Need to specify encoding when getting Achievements or Places endpoint"""
+        if "achievements" or "places" in resource:
+            async with self._websession.request(
+                    method,
+                    self.url(config, resource),
+                    headers=headers,
+                    data=data) as r:
+                r.raise_for_status()
+                return await r.json(encoding='UTF-8')
         async with self._websession.request(
                 method,
                 self.url(config, resource),
@@ -95,6 +104,22 @@ class Client:
     async def get_pets(self):
         return await self.get_resource(self._config, self._token, 'pets')
 
+    """
+    Returns:
+        pet: dictionary of
+             id, gender, name, etc for single pet
+    """
+
+    async def get_pet(self, pet_id):
+        return await self.get_resource(self._config, self._token, 'pets/%s' % pet_id)
+
+    """
+    Returns:
+       device: dictionary of
+          model_id, serial_number, battery_stats, etc
+    """
+    async def get_device(self, serial_number):
+        return await self.get_resource(self._config, self._token, 'devices/%s' % serial_number)
 
     """
     Returns:
@@ -167,6 +192,17 @@ class Client:
     """
     async def get_dailies_day(self, pet_id, day_id):
         return await self.get_resource(self._config, self._token, "pets/%s/dailies/%s" % (pet_id, day_id))
+
+    """
+    Returns:
+        daily_items: array of dictionaries
+                type: event type
+                title: event title
+                start_time: in UTC
+                end_time: string in UTC
+    """
+    async def get_dailies_daily_items(self, pet_id, day_id):
+        return await self.get_resource(self._config, self._token, "pets/%s/dailies/%s/daily_items" % (pet_id, day_id))
 
 
     """

@@ -71,6 +71,31 @@ sensor:
         icon_template: mdi:battery
         value_template: '{{ state_attr("device_tracker.whistle_charlie", "battery_level") }}'
         unit_of_measurement: '%'
+      charlie_distance:
+        friendly_name: "Distance"
+        icon_template: mdi:map-marker-distance
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "activity_distance") | round(1) }}'
+        unit_of_measurement: 'miles'
+      charlie_calories:
+        friendly_name: "Calories"
+        icon_template: mdi:run
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "activity_calories") | round(1) }}'
+        unit_of_measurement: 'calories'
+      charlie_battery_days_left:
+        friendly_name: "Battery Days Left"
+        icon_template: mdi:calendar-clock
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "battery_days_left") }}'
+        unit_of_measurement: 'days'
+      charlie_battery_24h_wifi_usage:
+        friendly_name: "Battery WiFi Usage"
+        icon_template: mdi:wifi
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "24h_battery_wifi_usage") }}'
+        unit_of_measurement: '%'
+      charlie_battery_24h_cell_usage:
+        friendly_name: "Battery Cellular Usage"
+        icon_template: mdi:cellphone-basic
+        value_template: '{{ state_attr("device_tracker.whistle_charlie", "24h_battery_cellular_usage") }}'
+        unit_of_measurement: '%'
 ```
 
 Then, use these templates in 'ui-lovelace.yaml' -- 
@@ -92,5 +117,10 @@ views:
                   - sensor.charlie_goal_streak
                   - sensor.charlie_active_minutes
                   - sensor.charlie_rest_minutes
+                  - sensor.charlie_distance
+                  - sensor.charlie_calories
+                  - sensor.charlie_battery_24h_wifi_usage
+                  - sensor.charlie_battery_24h_cell_usage
+                  - sensor.charlie_battery_days_left
 
 ```
