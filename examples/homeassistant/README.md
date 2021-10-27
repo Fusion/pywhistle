@@ -12,7 +12,7 @@ The commands below should create the correct hierarchy while not downloading the
 ```
 # Modify the following line to replace the path after "cd" to match your folder structure
 cd home-assistant/config/custom_components
-git clone --depth=1 git@github.com:Fusion/pywhistle.git --no-checkout
+git clone --depth=1 https://github.com/Fusion/pywhistle.git --no-checkout
 cd pywhistle
 git checkout master -- examples/homeassistant
 cd ..
